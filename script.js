@@ -62,8 +62,7 @@ function playRound() {
 function game() {
   let playerScore = 0;
   let computerScore = 0;
-  let turn = 1;
-  while (turn <= MAXIMUM_TURN_COUNT) {
+  for (let turn = 1; turn <= MAXIMUM_TURN_COUNT;) {
     while (playerScore < 3 && computerScore < 3) {
       console.log(`Turn ${turn}`)
       let roundOutcome = playRound();
@@ -81,8 +80,8 @@ function game() {
   };
   const gameResult = (playerScore > computerScore) ? 'playerWin' : 'computerWin';
   if (gameResult == 'playerWin') {
-    console.log(`Player wins with a score of ${playerScore} to ${computerScore}!`);
+    console.log(`Player wins series with a score of ${playerScore} to ${computerScore}!`);
   } else {
-    console.log(`Computer wins with a score of ${computerScore} to ${playerScore}!`);
+    console.log(`Computer wins series with a score of ${computerScore} to ${playerScore}!`);
   }
 };
