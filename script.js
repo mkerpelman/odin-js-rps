@@ -1,3 +1,5 @@
+const MAXIMUM_TURN_COUNT = 5;
+
 function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3)
   switch (randomNumber) {
@@ -35,10 +37,10 @@ function evaluateChoices(playerChoice, computerChoice) {
 function createOutcomeDialogue(roundOutcome, playerChoice, computerChoice) {
   switch (roundOutcome) {
     case 'win':
-      console.log(`Player wins! ${capitalizeFirstLetter(playerChoice)} beats ${computerChoice}.`);
+      console.log(`Player wins round! ${capitalizeFirstLetter(playerChoice)} beats ${computerChoice}.`);
     break;
     case 'lose':
-      console.log(`Computer wins! ${capitalizeFirstLetter(computerChoice)} beats ${playerChoice}.`);
+      console.log(`Computer wins round! ${capitalizeFirstLetter(computerChoice)} beats ${playerChoice}.`);
     break;
     default:
       console.log(`It's a tie! Both opponents played ${playerChoice}.`);
@@ -54,5 +56,33 @@ function playRound() {
   const computerChoice = getComputerChoice();
   const roundOutcome = evaluateChoices(playerChoice, computerChoice);
   createOutcomeDialogue(roundOutcome, playerChoice, computerChoice);
+  return roundOutcome
 };
 
+function game() {
+  let playerScore = 0;
+  let computerScore = 0;
+  let turn = 1;
+  while (turn <= MAXIMUM_TURN_COUNT) {
+    while (playerScore < 3 && computerScore < 3) {
+      console.log(`Turn ${turn}`)
+      let roundOutcome = playRound();
+      switch (roundOutcome) {
+        case 'win':
+          playerScore++;
+          turn++;
+        break;
+        case 'lose':
+          computerScore++;
+          turn++;
+        break;
+      };
+    };
+  };
+  const gameResult = (playerScore > computerScore) ? 'playerWin' : 'computerWin';
+  if (gameResult == 'playerWin') {
+    console.log(`Player wins with a score of ${playerScore} to ${computerScore}!`);
+  } else {
+    console.log(`Computer wins with a score of ${computerScore} to ${playerScore}!`);
+  }
+};
